@@ -93,7 +93,7 @@ function Lightbox({ items, index, setIndex, caption }: { items: MediaItem[]; ind
       document.body.style.overflow = "";
     };
   }, [go, setIndex]);
-  const p = items[index];
+  const p = items[index]!;
   return (
     <div
       role="dialog"

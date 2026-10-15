@@ -104,7 +104,7 @@ function Manager() {
     const form = e.currentTarget;
     const fd = new FormData(form);
     const files = (fd.getAll("files") as File[]).filter((f) => f.size > 0);
-    if (!files.length) return toast.error("Valitse tiedosto");
+    if (!files.length) { toast.error("Valitse tiedosto"); return; }
     setUploading(true);
     const kind = String(fd.get("kind"));
     const maxOrder = items.reduce((m, i) => Math.max(m, i.sort_order), 0);
@@ -133,7 +133,7 @@ function Manager() {
   }
 
   async function move(list: MediaItem[], idx: number, dir: -1 | 1) {
-    const a = list[idx], b = list[idx + dir];
+    const a = list[idx]!, b = list[idx + dir];
     if (!b) return;
     const ao = a.sort_order === b.sort_order ? b.sort_order + dir : b.sort_order;
     await Promise.all([
@@ -143,7 +143,7 @@ function Manager() {
     load();
   }
 
-  async function save(item: MediaItem, patch: Partial<MediaItem>) {
+  async function save(item: MediaItem, patch: Partial<Omit<MediaItem, "url">>) {
     const { error } = await supabase.from("media_items").update(patch).eq("id", item.id);
     if (error) toast.error(error.message); else { toast.success("Tallennettu"); load(); }
   }
@@ -179,7 +179,7 @@ function Manager() {
 
 function ItemList({ title, list, move, remove, save }: {
   title: string; list: MediaItem[];
-  move: (l: MediaItem[], i: number, d: -1 | 1) => void; remove: (i: MediaItem) => void; save: (i: MediaItem, p: Partial<MediaItem>) => void;
+  move: (l: MediaItem[], i: number, d: -1 | 1) => void; remove: (i: MediaItem) => void; save: (i: MediaItem, p: Partial<Omit<MediaItem, "url">>) => void;
 }) {
   return (
     <section>
@@ -194,7 +194,7 @@ function ItemList({ title, list, move, remove, save }: {
 
 function Row({ item, idx, list, move, remove, save }: {
   item: MediaItem; idx: number; list: MediaItem[];
-  move: (l: MediaItem[], i: number, d: -1 | 1) => void; remove: (i: MediaItem) => void; save: (i: MediaItem, p: Partial<MediaItem>) => void;
+  move: (l: MediaItem[], i: number, d: -1 | 1) => void; remove: (i: MediaItem) => void; save: (i: MediaItem, p: Partial<Omit<MediaItem, "url">>) => void;
 }) {
   const [fi, setFi] = useState(item.caption_fi);
   const [en, setEn] = useState(item.caption_en);

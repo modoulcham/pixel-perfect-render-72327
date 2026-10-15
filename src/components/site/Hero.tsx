@@ -32,7 +32,7 @@ export function Hero() {
       <div className="bg-background">
         <div className="mx-auto -mt-2 grid max-w-7xl grid-cols-2 gap-3 px-4 pb-6 sm:px-6 lg:grid-cols-4">
           {t.hero.badges.map((b, i) => {
-            const Icon = badgeIcons[i];
+            const Icon = badgeIcons[i]!;
             return (
               <Reveal key={b} delay={i * 80} className="flex items-center gap-3 rounded-2xl border bg-card p-4 shadow-soft">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent text-water"><Icon className="h-5 w-5" /></span>

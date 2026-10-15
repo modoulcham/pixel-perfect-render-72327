@@ -12,7 +12,7 @@ export function Services() {
         <SectionHeading eyebrow={t.services.eyebrow} title={t.services.title} subtitle={t.services.subtitle} />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {t.services.items.map((s, i) => {
-            const Icon = icons[i];
+            const Icon = icons[i]!;
             return (
               <Reveal key={s.t} delay={(i % 3) * 90}>
                 <article className="card-lift group h-full rounded-2xl border bg-card p-7 shadow-soft">

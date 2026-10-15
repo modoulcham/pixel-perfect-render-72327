@@ -12,7 +12,7 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => {
+    const io = new IntersectionObserver(([e]) => { if (!e) return;
       if (!e.isIntersecting) return;
       io.disconnect();
       const start = performance.now();
@@ -50,7 +50,7 @@ export function About() {
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{t.about.p2}</p>
           <div className="mt-10 grid grid-cols-2 gap-4">
             {t.about.stats.map((s, i) => {
-              const Icon = statIcons[i];
+              const Icon = statIcons[i]!;
               return (
                 <div key={i} className="rounded-2xl border bg-card p-5 shadow-soft">
                   <Icon className="mb-3 h-6 w-6 text-water" />
@@ -82,7 +82,7 @@ export function Partners() {
         </Reveal>
         <Reveal delay={120} className="grid gap-3">
           {t.partners.points.map((p, i) => {
-            const Icon = [Building2, Clock, Handshake][i];
+            const Icon = [Building2, Clock, Handshake][i]!;
             return (
               <div key={p} className="flex items-center gap-4 rounded-2xl border border-navy-foreground/15 bg-navy-foreground/5 p-5 backdrop-blur">
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-water-gradient text-primary-foreground"><Icon className="h-5 w-5" /></span>
@@ -107,7 +107,7 @@ export function Why() {
         <SectionHeading eyebrow={t.why.eyebrow} title={t.why.title} />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
           {t.why.items.map((w, i) => {
-            const Icon = whyIcons[i];
+            const Icon = whyIcons[i]!;
             return (
               <Reveal key={w.t} delay={i * 70}>
                 <div className="card-lift h-full rounded-2xl border bg-card p-6 text-center shadow-soft">
