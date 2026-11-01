@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Menu, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/i18n/LanguageProvider";
@@ -6,6 +7,7 @@ import { site } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
 import { LangSwitch } from "./LangSwitch";
+import { useNavLinks } from "./nav-links";
 
 export function Header() {
   const { t } = useLang();
@@ -19,24 +21,17 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const links = [
-    ["/#home", t.nav.home],
-    ["/#services", t.nav.services],
-    ["/gallery", t.nav.gallery],
-    ["/#about", t.nav.about],
-    ["/invest", t.invest.nav],
-    ["/#contact", t.nav.contact],
-  ] as const;
+  const links = useNavLinks();
 
   return (
     <header className={cn("sticky top-0 z-50 border-b transition-all", scrolled ? "border-border bg-background/90 shadow-soft backdrop-blur-lg" : "border-transparent bg-background")}>
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
-        <a href="/#home" aria-label={site.name}><Logo /></a>
+        <Link to="/" hash="home" aria-label={site.name}><Logo /></Link>
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
-          {links.map(([href, label]) => (
-            <a key={href} href={href} className="whitespace-nowrap rounded-lg px-3 py-2 text-sm font-semibold text-navy/80 transition-colors hover:bg-accent hover:text-navy">
-              {label}
-            </a>
+          {links.map((l) => (
+            <Link key={l.to + ("hash" in l ? l.hash : "")} to={l.to} hash={"hash" in l ? l.hash : undefined} className="whitespace-nowrap rounded-lg px-3 py-2 text-sm font-semibold text-navy/80 transition-colors hover:bg-accent hover:text-navy">
+              {l.label}
+            </Link>
           ))}
         </nav>
         <div className="flex items-center gap-2">
@@ -52,10 +47,10 @@ export function Header() {
       <div className={cn("grid overflow-hidden transition-all duration-300 lg:hidden", open ? "grid-rows-[1fr] border-t" : "grid-rows-[0fr]")}>
         <div className="min-h-0">
           <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4" aria-label="Mobile">
-            {links.map(([href, label]) => (
-              <a key={href} href={href} onClick={() => setOpen(false)} className="flex min-h-11 items-center rounded-lg px-3 text-base font-semibold text-navy hover:bg-accent">
-                {label}
-              </a>
+            {links.map((l) => (
+              <Link key={l.to + ("hash" in l ? l.hash : "")} to={l.to} hash={"hash" in l ? l.hash : undefined} onClick={() => setOpen(false)} className="flex min-h-11 items-center rounded-lg px-3 text-base font-semibold text-navy hover:bg-accent">
+                {l.label}
+              </Link>
             ))}
             <div className="mt-3 flex items-center justify-between gap-3">
               <LangSwitch />

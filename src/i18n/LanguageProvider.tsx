@@ -1,18 +1,30 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
-import { languages, translations, type Dict, type Lang } from "./translations";
-
-const STORAGE_KEY = "mps-lang";
+import { translations, type Dict, type Lang } from "./translations";
+import { LANG_COOKIE, toLang, writeLang } from "./lang-cookie";
 
 type Ctx = { lang: Lang; t: Dict; setLang: (l: Lang) => void };
 const LanguageContext = createContext<Ctx | null>(null);
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("fi");
+/** `initialLang` comes from the cookie (read in the root route) so server and client agree. */
+export function LanguageProvider({ initialLang, children }: { initialLang: Lang; children: ReactNode }) {
+  const [lang, setLangState] = useState<Lang>(initialLang);
 
-  useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (languages.includes(saved as Lang)) setLangState(saved as Lang);
+  const setLang = useCallback((l: Lang) => {
+    setLangState(l);
+    writeLang(l);
   }, []);
+
+  // One-time move of a choice saved before the cookie existed (it used localStorage).
+  useEffect(() => {
+    try {
+      const legacy = toLang(localStorage.getItem(LANG_COOKIE));
+      if (!legacy) return;
+      localStorage.removeItem(LANG_COOKIE);
+      if (!document.cookie.includes(`${LANG_COOKIE}=`)) setLang(legacy);
+    } catch {
+      // Storage can be blocked; the cookie is the source of truth anyway.
+    }
+  }, [setLang]);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -21,15 +33,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     document.querySelector('meta[name="description"]')?.setAttribute("content", t.seo.description);
   }, [lang]);
 
-  const setLang = useCallback((l: Lang) => {
-    setLangState(l);
-    localStorage.setItem(STORAGE_KEY, l);
-  }, []);
-
   return (
-    <LanguageContext.Provider value={{ lang, t: translations[lang], setLang }}>
-      {children}
-    </LanguageContext.Provider>
+    <LanguageContext.Provider value={{ lang, t: translations[lang], setLang }}>{children}</LanguageContext.Provider>
   );
 }
 

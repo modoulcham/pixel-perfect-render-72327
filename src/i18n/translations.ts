@@ -90,7 +90,7 @@ const fi = {
   about: {
     eyebrow: "Meistä",
     title: "Momodou Touray – yrittäjä ja putkiasentaja",
-    p1: "Olen LVI-koulutettu putkiasentaja, ja minulla on noin kahdeksan vuoden kokemus käytännön putkitöistä. Teen jokaisen työn niin kuin tekisin sen omaan kotiini: siististi, huolellisesti ja sovitussa aikataulussa.",
+    p1: "Muutin Suomeen maahanmuuttajana vuonna 2015. Opiskelin ensin suomen kieltä 10 kuukautta ja sen jälkeen putkiasentajaksi suomalaisessa ammattikoulussa. Valmistumisen jälkeen olen työskennellyt putkiasentajana. Teen jokaisen työn niin kuin tekisin sen omaan kotiini: siististi, huolellisesti ja sovitussa aikataulussa.",
     p2: "Palvelen yksityisasiakkaita ja yrityksiä Turussa ja koko Varsinais-Suomessa, ja otan mielelläni vastaan töitä myös muilta paikkakunnilta. Toimin myös aliurakoitsijana rakennus-, LVI- ja kiinteistöalan yrityksille.",
     role: "Yrittäjä / Putkiasentaja",
     stats: [
@@ -308,7 +308,7 @@ const en: typeof fi = {
   about: {
     eyebrow: "About",
     title: "Momodou Touray – entrepreneur and pipe fitter",
-    p1: "I'm an LVI-trained pipe fitter with about eight years of hands-on plumbing experience. I do every job the way I would in my own home: tidy, careful and on the agreed schedule.",
+    p1: "I came to Finland as an immigrant in 2015. I first studied Finnish for 10 months, then trained as a plumber at a Finnish vocational school, and I have worked as a plumber ever since I graduated. I do every job the way I would in my own home: tidy, careful and on the agreed schedule.",
     p2: "I serve private customers and businesses in Turku and across Southwest Finland, and gladly take on work in other areas too. I also work as a subcontractor for construction, HVAC and property companies.",
     role: "Entrepreneur / Pipe fitter",
     stats: [
@@ -532,7 +532,7 @@ const fr: typeof fi = {
   about: {
     eyebrow: "À propos",
     title: "Momodou Touray – entrepreneur et plombier",
-    p1: "Je suis plombier-chauffagiste diplômé, avec environ huit ans d'expérience sur le terrain. Je réalise chaque chantier comme je le ferais chez moi : proprement, avec soin et dans les délais convenus.",
+    p1: "Je suis arrivé en Finlande en 2015 en tant qu'immigré. J'ai d'abord étudié le finnois pendant 10 mois, puis suivi une formation de plombier dans une école professionnelle finlandaise. Depuis l'obtention de mon diplôme, je travaille comme plombier. Je réalise chaque chantier comme je le ferais chez moi : proprement, avec soin et dans les délais convenus.",
     p2: "Je travaille pour des particuliers et des entreprises à Turku et dans tout le sud-ouest de la Finlande, et j'accepte volontiers des chantiers dans d'autres régions. Je travaille aussi en sous-traitance pour des entreprises du bâtiment, du génie climatique et de l'immobilier.",
     role: "Entrepreneur / Plombier",
     stats: [
@@ -757,7 +757,7 @@ const ru: typeof fi = {
   about: {
     eyebrow: "О нас",
     title: "Момоду Турай – предприниматель и сантехник",
-    p1: "Я сантехник с профильным образованием и около восьми лет практического опыта. Каждую работу я выполняю так, как сделал бы у себя дома: чисто, аккуратно и в оговорённые сроки.",
+    p1: "Я приехал в Финляндию как иммигрант в 2015 году. Сначала 10 месяцев изучал финский язык, затем выучился на сантехника в финском профессиональном училище и с момента окончания работаю сантехником. Каждую работу я выполняю так, как сделал бы у себя дома: чисто, аккуратно и в оговорённые сроки.",
     p2: "Я работаю с частными клиентами и компаниями в Турку и по всей Юго-Западной Финляндии и с удовольствием беру заказы в других регионах. Также работаю на субподряде у строительных, инженерных и управляющих компаний.",
     role: "Предприниматель / Сантехник",
     stats: [
@@ -898,3 +898,5 @@ export const languageNames: Record<Lang, string> = {
   fr: "Français",
   ru: "Русский",
 };
+/** Open Graph locale codes for link previews. */
+export const ogLocales: Record<Lang, string> = { en: "en_GB", fi: "fi_FI", fr: "fr_FR", ru: "ru_RU" };

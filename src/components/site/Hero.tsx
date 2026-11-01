@@ -1,4 +1,5 @@
 import { ArrowRight, Clock, Handshake, Phone, ShieldCheck, Sparkles } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/i18n/LanguageProvider";
 import { site } from "@/config/site";
@@ -33,9 +34,9 @@ export function Hero() {
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Button asChild variant="hero" size="lg">
-              <a href="/#contact">
+              <Link to="/" hash="contact">
                 {t.cta.quote} <ArrowRight />
-              </a>
+              </Link>
             </Button>
             <Button asChild variant="glass" size="lg">
               <a href={site.phoneHref}>

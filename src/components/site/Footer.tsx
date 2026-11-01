@@ -1,13 +1,15 @@
 import { MessageCircle, Phone, FileText } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/i18n/LanguageProvider";
 import { site } from "@/config/site";
 import { Logo } from "./Logo";
 import { LangSwitch } from "./LangSwitch";
+import { useNavLinks } from "./nav-links";
 
 export function Footer() {
   const { t } = useLang();
-  const links = [["/#home", t.nav.home], ["/#services", t.nav.services], ["/gallery", t.nav.gallery], ["/#about", t.nav.about], ["/invest", t.invest.nav], ["/#contact", t.nav.contact]];
+  const links = useNavLinks();
   return (
     <footer className="bg-navy pb-28 pt-16 text-navy-foreground md:pb-12">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 md:grid-cols-3">
@@ -19,7 +21,13 @@ export function Footer() {
         <div>
           <h3 className="mb-4 font-bold">{t.footer.links}</h3>
           <ul className="space-y-1">
-            {links.map(([h, l]) => <li key={h}><a href={h} className="inline-flex min-h-9 items-center text-navy-foreground/75 hover:text-cyan">{l}</a></li>)}
+            {links.map((l) => (
+              <li key={l.to + ("hash" in l ? l.hash : "")}>
+                <Link to={l.to} hash={"hash" in l ? l.hash : undefined} className="inline-flex min-h-9 items-center text-navy-foreground/75 hover:text-cyan">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div>
@@ -49,7 +57,7 @@ export function MobileBar() {
       </a>
       <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 border-t bg-background/95 p-3 backdrop-blur md:hidden">
         <Button asChild variant="navy" size="lg"><a href={site.phoneHref}><Phone /> {t.cta.callNumber}</a></Button>
-        <Button asChild variant="hero" size="lg"><a href="/#contact"><FileText /> {t.cta.quote}</a></Button>
+        <Button asChild variant="hero" size="lg"><Link to="/" hash="contact"><FileText /> {t.cta.quote}</Link></Button>
       </div>
     </>
   );

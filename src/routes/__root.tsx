@@ -12,6 +12,7 @@ import { type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { LanguageProvider } from "@/i18n/LanguageProvider";
+import { readLang } from "@/i18n/lang-cookie";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -72,6 +73,8 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  // Read on the server for SSR and in the browser on navigation, so the page never starts in the wrong language.
+  beforeLoad: () => ({ lang: readLang() }),
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -95,8 +98,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const { lang } = Route.useRouteContext();
   return (
-    <html lang="fi" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
@@ -109,11 +113,11 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
+  const { queryClient, lang } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
+      <LanguageProvider initialLang={lang}>
         <Outlet />
         <Toaster />
       </LanguageProvider>
