@@ -7,7 +7,7 @@ import { LangSwitch } from "./LangSwitch";
 
 export function Footer() {
   const { t } = useLang();
-  const links = [["#home", t.nav.home], ["#services", t.nav.services], ["#gallery", t.nav.gallery], ["#about", t.nav.about], ["#contact", t.nav.contact]];
+  const links = [["/#home", t.nav.home], ["/#services", t.nav.services], ["/gallery", t.nav.gallery], ["/#about", t.nav.about], ["/#contact", t.nav.contact]];
   return (
     <footer className="bg-navy pb-28 pt-16 text-navy-foreground md:pb-12">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 md:grid-cols-3">
@@ -49,7 +49,7 @@ export function MobileBar() {
       </a>
       <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 border-t bg-background/95 p-3 backdrop-blur md:hidden">
         <Button asChild variant="navy" size="lg"><a href={site.phoneHref}><Phone /> {t.cta.callNumber}</a></Button>
-        <Button asChild variant="hero" size="lg"><a href="#contact"><FileText /> {t.cta.quote}</a></Button>
+        <Button asChild variant="hero" size="lg"><a href="/#contact"><FileText /> {t.cta.quote}</a></Button>
       </div>
     </>
   );

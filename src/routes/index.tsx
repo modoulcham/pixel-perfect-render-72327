@@ -4,7 +4,7 @@ import { site } from "@/config/site";
 import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
 import { Services } from "@/components/site/Services";
-import { GalleryAndDocs } from "@/components/site/Gallery";
+import { Documents, GalleryPreview } from "@/components/site/Gallery";
 import { About, Partners, Why } from "@/components/site/About";
 import { Contact } from "@/components/site/Contact";
 import { Footer, MobileBar } from "@/components/site/Footer";
@@ -21,6 +21,7 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "fi_FI" },
       { property: "og:locale:alternate", content: "en_GB" },
+      { property: "og:locale:alternate", content: "de_DE" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     scripts: [
@@ -51,7 +52,8 @@ function Index() {
       <main>
         <Hero />
         <Services />
-        <GalleryAndDocs />
+        <GalleryPreview />
+        <Documents />
         <About />
         <Partners />
         <Why />

@@ -1,5 +1,5 @@
-// All site text in Finnish (fi) and English (en). Edit freely.
-export type Lang = "fi" | "en";
+// All site text in Finnish (fi), English (en) and German (de). Edit freely.
+export type Lang = "fi" | "en" | "de";
 
 export const categories = ["bathroom", "kitchen", "pipes", "installations", "maintenance"] as const;
 export type Category = (typeof categories)[number];
@@ -38,7 +38,10 @@ const fi = {
     title: "Valmiita töitä",
     subtitle: "Kurkistus toteutettuihin asennuksiin ja remontteihin.",
     all: "Kaikki",
-    cats: { bathroom: "Kylpyhuone", kitchen: "Keittiö", pipes: "Putket", installations: "Asennukset", maintenance: "Huolto" } as Record<Category, string>,
+    viewAll: "Katso kaikki kuvat",
+    pageTitle: "Työt – Momodou's Plumbing Service",
+    pageDescription: "Kuvia toteutetuista putkiasennuksista, kylpyhuoneista ja teknisten tilojen töistä Turussa ja Varsinais-Suomessa.",
+    cats: { bathroom: "Kylpyhuone", kitchen: "Altaat ja keittiö", pipes: "Putket", installations: "Asennukset", maintenance: "Venttiilit ja huolto" } as Record<Category, string>,
     empty: "Tässä kategoriassa ei ole vielä kuvia.",
     close: "Sulje",
     prev: "Edellinen",
@@ -157,7 +160,10 @@ const en: typeof fi = {
     title: "Completed projects",
     subtitle: "A look at finished installations and renovations.",
     all: "All",
-    cats: { bathroom: "Bathroom", kitchen: "Kitchen", pipes: "Pipes", installations: "Installations", maintenance: "Maintenance" },
+    viewAll: "View all photos",
+    pageTitle: "Gallery – Momodou's Plumbing Service",
+    pageDescription: "Photos of completed pipe installations, bathrooms and technical room work in Turku and Southwest Finland.",
+    cats: { bathroom: "Bathroom", kitchen: "Sinks & kitchen", pipes: "Pipes", installations: "Installations", maintenance: "Valves & maintenance" },
     empty: "No photos in this category yet.",
     close: "Close",
     prev: "Previous",
@@ -242,5 +248,128 @@ const en: typeof fi = {
   },
 };
 
-export const translations = { fi, en };
+const de: typeof fi = {
+  seo: {
+    title: "Momodou's Plumbing Service – Zuverlässiger Sanitärservice in Turku",
+    description:
+      "Rohrinstallationen, Armaturen, WCs, Geräteanschlüsse und Reparaturen in Turku und Südwestfinnland. Für Privat- und Geschäftskunden sowie als Subunternehmer.",
+  },
+  nav: { home: "Start", services: "Leistungen", gallery: "Galerie", about: "Über uns", contact: "Kontakt" },
+  cta: { call: "Jetzt anrufen", quote: "Angebot anfordern", callNumber: "Anrufen", contact: "Kontakt aufnehmen" },
+  hero: {
+    eyebrow: "Sanitär & Heizung in Turku",
+    title: "Zuverlässiger Sanitärservice in Turku",
+    subtitle:
+      "Rohrarbeiten, Installationen und Reparaturen – sorgfältig und termingerecht für Privathaushalte, Unternehmen und Baustellen.",
+    badges: ["Hochwertige Arbeit", "Zuverlässiger Service", "Schnelle Reaktion", "Für Privat- & Geschäftskunden"],
+  },
+  services: {
+    eyebrow: "Leistungen",
+    title: "Was wir machen",
+    subtitle: "Alltägliche Sanitärarbeiten und größere Installationen aus einer Hand.",
+    items: [
+      { t: "Rohrinstallationen und -reparaturen", d: "Neue Wasser- und Abwasserleitungen sowie die Reparatur von Lecks und Schäden." },
+      { t: "Armaturen- und Mischerinstallation", d: "Montage und Austausch von Küchen-, Bad- und Duscharmaturen." },
+      { t: "WC-Installation", d: "Stand- und Wand-WCs, einschließlich Austausch alter Toiletten." },
+      { t: "Anschluss von Wasch- und Spülmaschinen", d: "Sichere Anschlüsse mit Absperrventilen und Blick auf die Abdichtung." },
+      { t: "Sanitärarbeiten in Bad und Küche", d: "Sanitärarbeiten bei Renovierungen: Objekte, Abwasser und Wasserleitungen." },
+      { t: "Kleine Wartungs- und Reparaturarbeiten", d: "Tropfende Hähne, Verstopfungen, Ventile und andere schnelle Reparaturen." },
+    ],
+    more: "Außerdem Sanierungsprojekte, Sanitärarbeiten im Neubau und Subunternehmeraufträge.",
+  },
+  gallery: {
+    eyebrow: "Unsere Arbeit",
+    title: "Abgeschlossene Projekte",
+    subtitle: "Ein Einblick in fertige Installationen und Renovierungen.",
+    all: "Alle",
+    viewAll: "Alle Fotos ansehen",
+    pageTitle: "Galerie – Momodou's Plumbing Service",
+    pageDescription: "Fotos von Rohrinstallationen, Badezimmern und Arbeiten in Technikräumen in Turku und Südwestfinnland.",
+    cats: { bathroom: "Badezimmer", kitchen: "Spülen & Küche", pipes: "Rohre", installations: "Installationen", maintenance: "Ventile & Wartung" },
+    empty: "In dieser Kategorie gibt es noch keine Fotos.",
+    close: "Schließen",
+    prev: "Zurück",
+    next: "Weiter",
+  },
+  docs: {
+    eyebrow: "Vertrauen",
+    title: "Zertifikate & Dokumente",
+    subtitle: "Ausbildung, Qualifikationen und Referenzen.",
+    view: "Ansehen",
+    download: "Herunterladen",
+    empty: "Dokumente werden in Kürze hinzugefügt.",
+  },
+  about: {
+    eyebrow: "Über uns",
+    title: "Momodou Touray – Unternehmer und Rohrinstallateur",
+    p1: "Ich bin ausgebildeter Sanitär- und Heizungsinstallateur mit rund acht Jahren praktischer Erfahrung. Ich erledige jeden Auftrag so, wie ich es in meinem eigenen Zuhause tun würde: sauber, sorgfältig und im vereinbarten Zeitplan.",
+    p2: "Ich betreue Privat- und Geschäftskunden in Turku und ganz Südwestfinnland und arbeite außerdem als Subunternehmer für Bau-, Haustechnik- und Immobilienunternehmen.",
+    role: "Unternehmer / Rohrinstallateur",
+    stats: [
+      { v: 8, suffix: "+", l: "Jahre Erfahrung" },
+      { text: "Turku", l: "& Südwestfinnland" },
+      { text: "B2C & B2B", l: "Privat- & Geschäftskunden" },
+      { text: "Schnell", l: "Antwort auf Anfragen" },
+    ],
+  },
+  partners: {
+    eyebrow: "Für Unternehmen",
+    title: "Ein zuverlässiger Subunternehmer für Haustechnik-, Bau- und Immobilienunternehmen",
+    text: "Brauchen Sie zusätzliche Kapazität? Ich biete einen qualifizierten Rohrinstallateur zu flexiblen Bedingungen – für Einzelprojekte, Spitzenzeiten oder langfristige Zusammenarbeit.",
+    points: ["Einzelprojekte", "Spitzenzeiten", "Langfristige Zusammenarbeit"],
+    cta: "Zusammenarbeit besprechen",
+  },
+  why: {
+    eyebrow: "Warum wir",
+    title: "Warum Sie uns wählen sollten",
+    items: [
+      { t: "Hochwertige Arbeit", d: "Sorgfältige, normgerechte Installationen – jedes Mal." },
+      { t: "Zuverlässig", d: "Was vereinbart ist, gilt – Termin, Preis und Sauberkeit." },
+      { t: "Schnelle Reaktion", d: "Schnelle, klare Antworten auf jede Anfrage." },
+      { t: "Lokaler Service", d: "Ein Fachmann aus Turku, der die Region kennt." },
+      { t: "Langfristige Beziehungen", d: "Das Ziel: Kunden, die wieder anrufen." },
+    ],
+  },
+  contact: {
+    eyebrow: "Kontakt",
+    title: "Angebot anfordern",
+    subtitle: "Beschreiben Sie kurz den Auftrag, und ich melde mich bald bei Ihnen.",
+    form: {
+      name: "Name",
+      phone: "Telefon",
+      email: "E-Mail",
+      service: "Leistung",
+      servicePlaceholder: "Leistung auswählen",
+      other: "Sonstiges / Subunternehmer",
+      message: "Nachricht",
+      messagePlaceholder: "Beschreiben Sie Auftrag, Ort und gewünschten Zeitraum…",
+      image: "Foto anhängen (optional)",
+      submit: "Anfrage senden",
+      sending: "Wird gesendet…",
+      success: "Vielen Dank! Ihre Anfrage ist eingegangen. Ich melde mich bald.",
+      error: "Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder rufen Sie an.",
+      again: "Weitere Anfrage senden",
+    },
+    v: {
+      name: "Bitte geben Sie Ihren Namen ein",
+      phone: "Bitte geben Sie eine gültige Telefonnummer ein",
+      email: "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      service: "Bitte wählen Sie eine Leistung",
+      message: "Bitte schreiben Sie eine Nachricht (mindestens 10 Zeichen)",
+      image: "Die maximale Bildgröße beträgt 10 MB",
+    },
+    info: { phone: "Telefon", email: "E-Mail", location: "Standort", area: "Einsatzgebiet", areaValue: "Turku und Südwestfinnland", id: "Unternehmens-ID" },
+  },
+  footer: {
+    tagline: "Zuverlässiger Sanitärservice in Turku",
+    links: "Schnellzugriff",
+    contact: "Kontakt",
+    privacy:
+      "Diese Website speichert nur Ihre Sprachauswahl in Ihrem Browser. Die Angaben im Angebotsformular werden ausschließlich zur Kontaktaufnahme verwendet.",
+    rights: "Alle Rechte vorbehalten.",
+  },
+};
+
+export const translations = { fi, en, de };
 export type Dict = typeof fi;
+export const languages = Object.keys(translations) as Lang[];

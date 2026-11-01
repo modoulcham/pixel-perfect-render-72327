@@ -8,6 +8,8 @@ export type MediaItem = {
   mime_type: string | null;
   caption_fi: string;
   caption_en: string;
+  /** Only the supplied work photos have German captions; uploads fall back to English. */
+  caption_de?: string;
   category: string;
   sort_order: number;
   url: string;
@@ -23,6 +25,7 @@ export const workPhotos: MediaItem[] = workPhotoSources.map((p, i) => ({
   mime_type: "image/jpeg",
   caption_fi: p.fi,
   caption_en: p.en,
+  caption_de: p.de,
   category: p.category,
   sort_order: i,
   url: p.url,
@@ -35,9 +38,14 @@ export async function fetchMedia(): Promise<MediaItem[]> {
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: false });
   if (error || !data?.length) return [];
-  const { data: signed } = await supabase.storage
-    .from(MEDIA_BUCKET)
-    .createSignedUrls(data.map((d) => d.file_path), 60 * 60 * 24 * 7);
+  const { data: signed } = await supabase.storage.from(MEDIA_BUCKET).createSignedUrls(
+    data.map((d) => d.file_path),
+    60 * 60 * 24 * 7,
+  );
   const map = new Map(signed?.map((s) => [s.path, s.signedUrl]) ?? []);
-  return data.map((d) => ({ ...d, kind: d.kind as MediaItem["kind"], url: map.get(d.file_path) ?? "" }));
+  return data.map((d) => ({
+    ...d,
+    kind: d.kind as MediaItem["kind"],
+    url: map.get(d.file_path) ?? "",
+  }));
 }

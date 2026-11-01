@@ -78,7 +78,7 @@ export function Partners() {
           <p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-cyan">{t.partners.eyebrow}</p>
           <h2 className="text-3xl font-extrabold text-navy-foreground sm:text-4xl">{t.partners.title}</h2>
           <p className="mt-5 text-lg leading-relaxed text-navy-foreground/80">{t.partners.text}</p>
-          <Button asChild variant="hero" size="lg" className="mt-8"><a href="#contact"><Handshake /> {t.partners.cta}</a></Button>
+          <Button asChild variant="hero" size="lg" className="mt-8"><a href="/#contact"><Handshake /> {t.partners.cta}</a></Button>
         </Reveal>
         <Reveal delay={120} className="grid gap-3">
           {t.partners.points.map((p, i) => {

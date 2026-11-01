@@ -1,5 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Download, ExternalLink, FileText, X } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  ExternalLink,
+  FileText,
+  X,
+} from "lucide-react";
 import { useLang } from "@/i18n/LanguageProvider";
 import { categories, type Category } from "@/i18n/translations";
 import { fetchMedia, workPhotos, type MediaItem } from "@/lib/media";
@@ -7,43 +16,122 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Reveal, SectionHeading } from "./Reveal";
 
-export function GalleryAndDocs() {
+const PREVIEW_COUNT = 6;
+
+function useMedia() {
   const [items, setItems] = useState<MediaItem[] | null>(null);
   useEffect(() => {
-    fetchMedia().then(setItems).catch(() => setItems([]));
+    fetchMedia()
+      .then(setItems)
+      .catch(() => setItems([]));
   }, []);
-  const photos = items?.filter((i) => i.kind === "photo") ?? [];
-  const docs = items?.filter((i) => i.kind === "document") ?? [];
+  return items ?? [];
+}
+
+/** Caption in the current language; uploads without a German caption fall back to English. */
+function useCaption() {
+  const { lang } = useLang();
+  return (p: MediaItem) => {
+    const preferred = lang === "fi" ? p.caption_fi : lang === "de" ? p.caption_de : p.caption_en;
+    return preferred || p.caption_en || p.caption_fi;
+  };
+}
+
+function PhotoGrid({ photos }: { photos: MediaItem[] }) {
+  const { t } = useLang();
+  const caption = useCaption();
+  const [index, setIndex] = useState<number | null>(null);
   return (
     <>
-      <Gallery photos={[...workPhotos, ...photos]} />
-      <Documents docs={docs} />
+      <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
+        {photos.map((p, i) => (
+          <Button
+            variant="ghost"
+            key={p.id}
+            onClick={() => setIndex(i)}
+            className="group relative mb-5 block h-auto w-full break-inside-avoid overflow-hidden rounded-2xl bg-card p-0 whitespace-normal shadow-soft focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <img
+              src={p.url}
+              alt={caption(p)}
+              loading="lazy"
+              decoding="async"
+              className="w-full transition-transform duration-500 group-hover:scale-105"
+            />
+            <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/85 to-transparent p-4 pt-12 text-left">
+              <span className="block text-xs font-bold uppercase tracking-wider text-cyan">
+                {t.gallery.cats[p.category as Category] ?? p.category}
+              </span>
+              <span className="block font-semibold text-navy-foreground">{caption(p)}</span>
+            </span>
+          </Button>
+        ))}
+      </div>
+      {index !== null && (
+        <Lightbox items={photos} index={index} setIndex={setIndex} caption={caption} />
+      )}
     </>
   );
 }
 
-function Gallery({ photos }: { photos: MediaItem[] }) {
-  const { t, lang } = useLang();
-  const [filter, setFilter] = useState<Category | "all">("all");
-  const [index, setIndex] = useState<number | null>(null);
-  const shown = filter === "all" ? photos : photos.filter((p) => p.category === filter);
-  const caption = (p: MediaItem) => (lang === "fi" ? p.caption_fi : p.caption_en) || p.caption_fi || p.caption_en;
-
+/** Home-page teaser linking to the full /gallery page. */
+export function GalleryPreview() {
+  const { t } = useLang();
   return (
     <section id="gallery" className="bg-surface py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHeading eyebrow={t.gallery.eyebrow} title={t.gallery.title} subtitle={t.gallery.subtitle} />
-        <div className="-mx-4 mb-10 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:justify-center sm:px-0" role="tablist">
-          {(["all", ...categories] as const).map((c) => (
+        <SectionHeading
+          eyebrow={t.gallery.eyebrow}
+          title={t.gallery.title}
+          subtitle={t.gallery.subtitle}
+        />
+        <PhotoGrid photos={workPhotos.slice(0, PREVIEW_COUNT)} />
+        <Reveal className="mt-6 text-center">
+          <Button asChild variant="navy" size="lg">
+            <Link to="/gallery">
+              {t.gallery.viewAll} <ArrowRight />
+            </Link>
+          </Button>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/** Full gallery: supplied work photos followed by admin uploads. */
+export function Gallery() {
+  const { t } = useLang();
+  const uploads = useMedia().filter((i) => i.kind === "photo");
+  const photos = [...workPhotos, ...uploads];
+  const [filter, setFilter] = useState<Category | "all">("all");
+  const shown = filter === "all" ? photos : photos.filter((p) => p.category === filter);
+
+  return (
+    <section id="gallery" className="bg-surface py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <SectionHeading
+          eyebrow={t.gallery.eyebrow}
+          title={t.gallery.title}
+          subtitle={t.gallery.subtitle}
+        />
+        <div
+          className="-mx-4 mb-10 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:justify-center sm:px-0"
+          role="tablist"
+        >
+          {(
+            ["all", ...categories.filter((c) => photos.some((p) => p.category === c))] as const
+          ).map((c) => (
             <Button
               variant="ghost"
               key={c}
               role="tab"
               aria-selected={filter === c}
-              onClick={() => { setIndex(null); setFilter(c); }}
+              onClick={() => setFilter(c)}
               className={cn(
                 "min-h-11 shrink-0 rounded-full px-5 text-sm font-semibold transition-colors",
-                filter === c ? "bg-navy text-navy-foreground" : "bg-card text-navy shadow-soft hover:bg-accent",
+                filter === c
+                  ? "bg-navy text-navy-foreground"
+                  : "bg-card text-navy shadow-soft hover:bg-accent",
               )}
             >
               {c === "all" ? t.gallery.all : t.gallery.cats[c]}
@@ -53,35 +141,30 @@ function Gallery({ photos }: { photos: MediaItem[] }) {
         {shown.length === 0 ? (
           <p className="text-center text-muted-foreground">{t.gallery.empty}</p>
         ) : (
-          <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
-            {shown.map((p, i) => (
-              <Button
-                variant="ghost"
-                key={p.id}
-                onClick={() => setIndex(i)}
-                className="group relative mb-5 block h-auto w-full break-inside-avoid overflow-hidden rounded-2xl bg-card p-0 whitespace-normal shadow-soft focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                <img src={p.url} alt={caption(p)} loading="lazy" decoding="async" className="w-full transition-transform duration-500 group-hover:scale-105" />
-                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/85 to-transparent p-4 pt-12 text-left">
-                  <span className="block text-xs font-bold uppercase tracking-wider text-cyan">{t.gallery.cats[p.category as Category] ?? p.category}</span>
-                  <span className="block font-semibold text-navy-foreground">{caption(p)}</span>
-                </span>
-              </Button>
-            ))}
-          </div>
+          <PhotoGrid key={filter} photos={shown} />
         )}
       </div>
-      {index !== null && (
-        <Lightbox items={shown} index={index} setIndex={setIndex} caption={caption} />
-      )}
     </section>
   );
 }
 
-function Lightbox({ items, index, setIndex, caption }: { items: MediaItem[]; index: number; setIndex: (i: number | null) => void; caption: (p: MediaItem) => string }) {
+function Lightbox({
+  items,
+  index,
+  setIndex,
+  caption,
+}: {
+  items: MediaItem[];
+  index: number;
+  setIndex: (i: number | null) => void;
+  caption: (p: MediaItem) => string;
+}) {
   const { t } = useLang();
   const touchX = useRef<number | null>(null);
-  const go = useCallback((d: number) => setIndex((index + d + items.length) % items.length), [index, items.length, setIndex]);
+  const go = useCallback(
+    (d: number) => setIndex((index + d + items.length) % items.length),
+    [index, items.length, setIndex],
+  );
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setIndex(null);
@@ -113,21 +196,63 @@ function Lightbox({ items, index, setIndex, caption }: { items: MediaItem[]; ind
         touchX.current = null;
       }}
     >
-      <Button variant="glass" size="icon" className="absolute right-4 top-4" aria-label={t.gallery.close} onClick={() => setIndex(null)}><X /></Button>
-      <img src={p.url} alt={caption(p)} className="max-h-[78vh] max-w-full rounded-xl object-contain" onClick={(e) => e.stopPropagation()} />
-      <p className="mt-4 text-center font-semibold text-navy-foreground">{caption(p)} <span className="text-navy-foreground/60">· {index + 1}/{items.length}</span></p>
+      <Button
+        variant="glass"
+        size="icon"
+        className="absolute right-4 top-4"
+        aria-label={t.gallery.close}
+        onClick={() => setIndex(null)}
+      >
+        <X />
+      </Button>
+      <img
+        src={p.url}
+        alt={caption(p)}
+        className="max-h-[78vh] max-w-full rounded-xl object-contain"
+        onClick={(e) => e.stopPropagation()}
+      />
+      <p className="mt-4 text-center font-semibold text-navy-foreground">
+        {caption(p)}{" "}
+        <span className="text-navy-foreground/60">
+          · {index + 1}/{items.length}
+        </span>
+      </p>
       {items.length > 1 && (
         <>
-          <Button variant="glass" size="icon" className="absolute left-3 top-1/2 -translate-y-1/2" aria-label={t.gallery.prev} onClick={(e) => { e.stopPropagation(); go(-1); }}><ChevronLeft /></Button>
-          <Button variant="glass" size="icon" className="absolute right-3 top-1/2 -translate-y-1/2" aria-label={t.gallery.next} onClick={(e) => { e.stopPropagation(); go(1); }}><ChevronRight /></Button>
+          <Button
+            variant="glass"
+            size="icon"
+            className="absolute left-3 top-1/2 -translate-y-1/2"
+            aria-label={t.gallery.prev}
+            onClick={(e) => {
+              e.stopPropagation();
+              go(-1);
+            }}
+          >
+            <ChevronLeft />
+          </Button>
+          <Button
+            variant="glass"
+            size="icon"
+            className="absolute right-3 top-1/2 -translate-y-1/2"
+            aria-label={t.gallery.next}
+            onClick={(e) => {
+              e.stopPropagation();
+              go(1);
+            }}
+          >
+            <ChevronRight />
+          </Button>
         </>
       )}
     </div>
   );
 }
 
-function Documents({ docs }: { docs: MediaItem[] }) {
-  const { t, lang } = useLang();
+export function Documents() {
+  const { t } = useLang();
+  const caption = useCaption();
+  const docs = useMedia().filter((i) => i.kind === "document");
   return (
     <section id="documents" className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -140,19 +265,36 @@ function Documents({ docs }: { docs: MediaItem[] }) {
         ) : (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {docs.map((d, i) => {
-              const title = (lang === "fi" ? d.caption_fi : d.caption_en) || d.caption_fi || d.caption_en;
+              const title = caption(d);
               const isImg = d.mime_type?.startsWith("image/");
               return (
                 <Reveal key={d.id} delay={(i % 4) * 80}>
                   <article className="card-lift flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-soft">
                     <div className="flex aspect-[4/3] items-center justify-center bg-surface">
-                      {isImg ? <img src={d.url} alt={title} loading="lazy" className="h-full w-full object-cover" /> : <FileText className="h-14 w-14 text-water" />}
+                      {isImg ? (
+                        <img
+                          src={d.url}
+                          alt={title}
+                          loading="lazy"
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <FileText className="h-14 w-14 text-water" />
+                      )}
                     </div>
                     <div className="flex flex-1 flex-col p-5">
                       <h3 className="font-bold text-navy">{title}</h3>
                       <div className="mt-auto flex gap-2 pt-4">
-                        <Button asChild variant="outline" size="sm" className="h-10 flex-1"><a href={d.url} target="_blank" rel="noopener noreferrer"><ExternalLink /> {t.docs.view}</a></Button>
-                        <Button asChild variant="navy" size="sm" className="h-10 flex-1"><a href={d.url} download><Download /> {t.docs.download}</a></Button>
+                        <Button asChild variant="outline" size="sm" className="h-10 flex-1">
+                          <a href={d.url} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink /> {t.docs.view}
+                          </a>
+                        </Button>
+                        <Button asChild variant="navy" size="sm" className="h-10 flex-1">
+                          <a href={d.url} download>
+                            <Download /> {t.docs.download}
+                          </a>
+                        </Button>
                       </div>
                     </div>
                   </article>

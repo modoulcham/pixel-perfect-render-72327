@@ -11,7 +11,7 @@ export function Hero() {
   const { t } = useLang();
   return (
     <section id="home" className="relative isolate overflow-hidden bg-navy">
-      <img src={featuredWorkPhoto} alt="" width={1024} height={768} fetchPriority="high" className="absolute inset-0 -z-10 h-full w-full object-cover object-[70%_center]" />
+      <img src={featuredWorkPhoto} alt="" width={1200} height={1600} fetchPriority="high" className="absolute inset-y-0 right-0 -z-10 h-full w-full object-cover object-[center_45%] lg:w-3/5" />
       <div className="absolute inset-0 -z-10 bg-hero-overlay" />
       <div className="mx-auto max-w-7xl px-4 pb-24 pt-20 sm:px-6 sm:pt-28 lg:pb-36 lg:pt-36">
         <Reveal className="max-w-2xl">
@@ -21,7 +21,7 @@ export function Hero() {
           <h1 className="text-4xl font-extrabold leading-[1.08] text-navy-foreground sm:text-5xl lg:text-6xl">{t.hero.title}</h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-navy-foreground/80 sm:text-xl">{t.hero.subtitle}</p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Button asChild variant="hero" size="lg"><a href="#contact">{t.cta.quote} <ArrowRight /></a></Button>
+            <Button asChild variant="hero" size="lg"><a href="/#contact">{t.cta.quote} <ArrowRight /></a></Button>
             <Button asChild variant="glass" size="lg"><a href={site.phoneHref}><Phone /> {t.cta.callNumber} {site.phone}</a></Button>
           </div>
         </Reveal>

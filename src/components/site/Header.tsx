@@ -20,17 +20,17 @@ export function Header() {
   }, []);
 
   const links = [
-    ["#home", t.nav.home],
-    ["#services", t.nav.services],
-    ["#gallery", t.nav.gallery],
-    ["#about", t.nav.about],
-    ["#contact", t.nav.contact],
+    ["/#home", t.nav.home],
+    ["/#services", t.nav.services],
+    ["/gallery", t.nav.gallery],
+    ["/#about", t.nav.about],
+    ["/#contact", t.nav.contact],
   ] as const;
 
   return (
     <header className={cn("sticky top-0 z-50 border-b transition-all", scrolled ? "border-border bg-background/90 shadow-soft backdrop-blur-lg" : "border-transparent bg-background")}>
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
-        <a href="#home" aria-label={site.name}><Logo /></a>
+        <a href="/#home" aria-label={site.name}><Logo /></a>
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
           {links.map(([href, label]) => (
             <a key={href} href={href} className="rounded-lg px-3 py-2 text-sm font-semibold text-navy/80 transition-colors hover:bg-accent hover:text-navy">

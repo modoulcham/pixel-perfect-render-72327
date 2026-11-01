@@ -145,7 +145,7 @@ function Manager() {
     load();
   }
 
-  async function save(item: MediaItem, patch: Partial<Omit<MediaItem, "url">>) {
+  async function save(item: MediaItem, patch: Partial<Omit<MediaItem, "url" | "caption_de">>) {
     const { error } = await supabase.from("media_items").update(patch).eq("id", item.id);
     if (error) toast.error(error.message); else { toast.success("Tallennettu"); load(); }
   }
@@ -181,7 +181,7 @@ function Manager() {
 
 function ItemList({ title, list, move, remove, save }: {
   title: string; list: MediaItem[];
-  move: (l: MediaItem[], i: number, d: -1 | 1) => void; remove: (i: MediaItem) => void; save: (i: MediaItem, p: Partial<Omit<MediaItem, "url">>) => void;
+  move: (l: MediaItem[], i: number, d: -1 | 1) => void; remove: (i: MediaItem) => void; save: (i: MediaItem, p: Partial<Omit<MediaItem, "url" | "caption_de">>) => void;
 }) {
   return (
     <section>
@@ -196,7 +196,7 @@ function ItemList({ title, list, move, remove, save }: {
 
 function Row({ item, idx, list, move, remove, save }: {
   item: MediaItem; idx: number; list: MediaItem[];
-  move: (l: MediaItem[], i: number, d: -1 | 1) => void; remove: (i: MediaItem) => void; save: (i: MediaItem, p: Partial<Omit<MediaItem, "url">>) => void;
+  move: (l: MediaItem[], i: number, d: -1 | 1) => void; remove: (i: MediaItem) => void; save: (i: MediaItem, p: Partial<Omit<MediaItem, "url" | "caption_de">>) => void;
 }) {
   const [fi, setFi] = useState(item.caption_fi);
   const [en, setEn] = useState(item.caption_en);

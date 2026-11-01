@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
-import { translations, type Dict, type Lang } from "./translations";
+import { languages, translations, type Dict, type Lang } from "./translations";
 
 const STORAGE_KEY = "mps-lang";
 
@@ -11,7 +11,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === "fi" || saved === "en") setLangState(saved);
+    if (languages.includes(saved as Lang)) setLangState(saved as Lang);
   }, []);
 
   useEffect(() => {
@@ -27,7 +27,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <LanguageContext.Provider value={{ lang, t: translations[lang], setLang }}>{children}</LanguageContext.Provider>
+    <LanguageContext.Provider value={{ lang, t: translations[lang], setLang }}>
+      {children}
+    </LanguageContext.Provider>
   );
 }
 
