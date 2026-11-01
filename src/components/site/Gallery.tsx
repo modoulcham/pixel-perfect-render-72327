@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Download, ExternalLink, FileText, X } from "lucide-react";
 import { useLang } from "@/i18n/LanguageProvider";
 import { categories, type Category } from "@/i18n/translations";
-import { fetchMedia, placeholderPhotos, type MediaItem } from "@/lib/media";
+import { fetchMedia, workPhotos, type MediaItem } from "@/lib/media";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Reveal, SectionHeading } from "./Reveal";
@@ -16,7 +16,7 @@ export function GalleryAndDocs() {
   const docs = items?.filter((i) => i.kind === "document") ?? [];
   return (
     <>
-      <Gallery photos={photos.length ? photos : placeholderPhotos} />
+      <Gallery photos={[...workPhotos, ...photos]} />
       <Documents docs={docs} />
     </>
   );
@@ -35,18 +35,19 @@ function Gallery({ photos }: { photos: MediaItem[] }) {
         <SectionHeading eyebrow={t.gallery.eyebrow} title={t.gallery.title} subtitle={t.gallery.subtitle} />
         <div className="-mx-4 mb-10 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:justify-center sm:px-0" role="tablist">
           {(["all", ...categories] as const).map((c) => (
-            <button
+            <Button
+              variant="ghost"
               key={c}
               role="tab"
               aria-selected={filter === c}
-              onClick={() => setFilter(c)}
+              onClick={() => { setIndex(null); setFilter(c); }}
               className={cn(
                 "min-h-11 shrink-0 rounded-full px-5 text-sm font-semibold transition-colors",
                 filter === c ? "bg-navy text-navy-foreground" : "bg-card text-navy shadow-soft hover:bg-accent",
               )}
             >
               {c === "all" ? t.gallery.all : t.gallery.cats[c]}
-            </button>
+            </Button>
           ))}
         </div>
         {shown.length === 0 ? (
@@ -54,17 +55,18 @@ function Gallery({ photos }: { photos: MediaItem[] }) {
         ) : (
           <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
             {shown.map((p, i) => (
-              <button
+              <Button
+                variant="ghost"
                 key={p.id}
                 onClick={() => setIndex(i)}
-                className="group relative mb-5 block w-full break-inside-avoid overflow-hidden rounded-2xl bg-card shadow-soft focus-visible:ring-2 focus-visible:ring-ring"
+                className="group relative mb-5 block h-auto w-full break-inside-avoid overflow-hidden rounded-2xl bg-card p-0 whitespace-normal shadow-soft focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <img src={p.url} alt={caption(p)} loading="lazy" decoding="async" className="w-full transition-transform duration-500 group-hover:scale-105" />
                 <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/85 to-transparent p-4 pt-12 text-left">
                   <span className="block text-xs font-bold uppercase tracking-wider text-cyan">{t.gallery.cats[p.category as Category] ?? p.category}</span>
                   <span className="block font-semibold text-navy-foreground">{caption(p)}</span>
                 </span>
-              </button>
+              </Button>
             ))}
           </div>
         )}
@@ -93,7 +95,8 @@ function Lightbox({ items, index, setIndex, caption }: { items: MediaItem[]; ind
       document.body.style.overflow = "";
     };
   }, [go, setIndex]);
-  const p = items[index]!;
+  const p = items[index];
+  if (!p) return null;
   return (
     <div
       role="dialog"
@@ -101,10 +104,11 @@ function Lightbox({ items, index, setIndex, caption }: { items: MediaItem[]; ind
       aria-label={caption(p)}
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-navy/95 p-4 animate-in fade-in"
       onClick={() => setIndex(null)}
-      onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
+      onTouchStart={(e) => (touchX.current = e.touches[0]?.clientX ?? null)}
       onTouchEnd={(e) => {
-        if (touchX.current === null) return;
-        const dx = e.changedTouches[0].clientX - touchX.current;
+        const touch = e.changedTouches[0];
+        if (touchX.current === null || !touch) return;
+        const dx = touch.clientX - touchX.current;
         if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
         touchX.current = null;
       }}
