@@ -13,5 +13,9 @@ export function useNavLinks() {
     { to: "/", hash: "about", label: t.nav.about },
     { to: "/invest", label: t.invest.nav },
     { to: "/", hash: "contact", label: t.nav.contact },
-  ] as const satisfies ReadonlyArray<{ to: "/" | "/gallery" | "/invest"; hash?: string; label: string }>;
+  ] as const satisfies ReadonlyArray<{
+    to: "/" | "/gallery" | "/invest";
+    hash?: string;
+    label: string;
+  }>;
 }

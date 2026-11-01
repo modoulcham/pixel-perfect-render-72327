@@ -6,7 +6,13 @@ type Ctx = { lang: Lang; t: Dict; setLang: (l: Lang) => void };
 const LanguageContext = createContext<Ctx | null>(null);
 
 /** `initialLang` comes from the cookie (read in the root route) so server and client agree. */
-export function LanguageProvider({ initialLang, children }: { initialLang: Lang; children: ReactNode }) {
+export function LanguageProvider({
+  initialLang,
+  children,
+}: {
+  initialLang: Lang;
+  children: ReactNode;
+}) {
   const [lang, setLangState] = useState<Lang>(initialLang);
 
   const setLang = useCallback((l: Lang) => {
@@ -34,7 +40,9 @@ export function LanguageProvider({ initialLang, children }: { initialLang: Lang;
   }, [lang]);
 
   return (
-    <LanguageContext.Provider value={{ lang, t: translations[lang], setLang }}>{children}</LanguageContext.Provider>
+    <LanguageContext.Provider value={{ lang, t: translations[lang], setLang }}>
+      {children}
+    </LanguageContext.Provider>
   );
 }
 

@@ -615,7 +615,10 @@ const fr: typeof fi = {
       },
       { t: "Fiable", d: "Ce qui est convenu est respecté : délais, prix et propreté." },
       { t: "Réponse rapide", d: "Des réponses rapides et claires à chaque demande." },
-      { t: "Turku et au-delà", d: "Basé à Turku, et disponible pour des chantiers dans d'autres régions." },
+      {
+        t: "Turku et au-delà",
+        d: "Basé à Turku, et disponible pour des chantiers dans d'autres régions.",
+      },
       { t: "Relations durables", d: "Notre objectif : des clients qui nous rappellent." },
     ],
   },
@@ -899,4 +902,9 @@ export const languageNames: Record<Lang, string> = {
   ru: "Русский",
 };
 /** Open Graph locale codes for link previews. */
-export const ogLocales: Record<Lang, string> = { en: "en_GB", fi: "fi_FI", fr: "fr_FR", ru: "ru_RU" };
+export const ogLocales: Record<Lang, string> = {
+  en: "en_GB",
+  fi: "fi_FI",
+  fr: "fr_FR",
+  ru: "ru_RU",
+};
