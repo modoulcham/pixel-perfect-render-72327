@@ -14,7 +14,7 @@ export function LangSwitch({ inverted }: { inverted?: boolean }) {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger
-        aria-label={`Language / Kieli / Sprache: ${languageNames[lang]}`}
+        aria-label={`Language / Kieli / Langue / Язык: ${languageNames[lang]}`}
         className={cn(
           "inline-flex min-h-10 items-center gap-1.5 rounded-full border px-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           inverted

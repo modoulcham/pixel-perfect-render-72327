@@ -24,6 +24,7 @@ export function Header() {
     ["/#services", t.nav.services],
     ["/gallery", t.nav.gallery],
     ["/#about", t.nav.about],
+    ["/invest", t.invest.nav],
     ["/#contact", t.nav.contact],
   ] as const;
 
@@ -33,7 +34,7 @@ export function Header() {
         <a href="/#home" aria-label={site.name}><Logo /></a>
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
           {links.map(([href, label]) => (
-            <a key={href} href={href} className="rounded-lg px-3 py-2 text-sm font-semibold text-navy/80 transition-colors hover:bg-accent hover:text-navy">
+            <a key={href} href={href} className="whitespace-nowrap rounded-lg px-3 py-2 text-sm font-semibold text-navy/80 transition-colors hover:bg-accent hover:text-navy">
               {label}
             </a>
           ))}

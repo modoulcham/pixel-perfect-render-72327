@@ -5,7 +5,7 @@ export const site = {
   phone: "+358 46 958 1280",
   phoneHref: "tel:+358469581280",
   whatsappHref: "https://wa.me/358469581280",
-  email: "info@momodousplumbing.fi",
+  email: "momodousplumbing@gmail.com",
   city: "Turku",
   region: "Varsinais-Suomi",
   country: "FI",

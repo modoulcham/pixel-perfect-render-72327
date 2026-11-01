@@ -82,7 +82,8 @@ export const workPhotoSources = [
     category: "pipes",
     fi: "Teräsputken hitsaus",
     en: "Welding large steel pipework",
-    de: "Schweißen großer Stahlrohrleitungen",
+    fr: "Soudure d'une grosse tuyauterie en acier",
+    ru: "Сварка крупных стальных трубопроводов",
   },
   {
     url: shower,
@@ -91,7 +92,8 @@ export const workPhotoSources = [
     category: "bathroom",
     fi: "Suihkusekoitin ja pintaputket",
     en: "Shower mixer and exposed pipework",
-    de: "Duscharmatur mit Aufputzleitungen",
+    fr: "Mitigeur de douche et tuyauterie apparente",
+    ru: "Смеситель для душа и открытая разводка",
   },
   {
     url: greenBath,
@@ -100,7 +102,8 @@ export const workPhotoSources = [
     category: "bathroom",
     fi: "Kromatut pintaputket ja kivipesuallas",
     en: "Chrome surface pipes and stone basin",
-    de: "Verchromte Aufputzleitungen und Steinwaschbecken",
+    fr: "Tuyaux chromés apparents et vasque en pierre",
+    ru: "Хромированные трубы и каменная раковина",
   },
   {
     url: manifolds,
@@ -109,7 +112,8 @@ export const workPhotoSources = [
     category: "pipes",
     fi: "Teknisen tilan jakotukit",
     en: "Technical room distribution manifolds",
-    de: "Verteiler im Technikraum",
+    fr: "Collecteurs de distribution en local technique",
+    ru: "Распределительные коллекторы в техническом помещении",
   },
   {
     url: thermo,
@@ -118,7 +122,8 @@ export const workPhotoSources = [
     category: "bathroom",
     fi: "Termostaattisuihkun asennus",
     en: "Thermostatic shower installation",
-    de: "Montage einer Thermostatdusche",
+    fr: "Installation d'une douche thermostatique",
+    ru: "Установка термостатического душа",
   },
   {
     url: stainless,
@@ -127,7 +132,8 @@ export const workPhotoSources = [
     category: "maintenance",
     fi: "Ruostumattomat palloventtiilit",
     en: "Stainless ball valve assembly",
-    de: "Kugelhähne aus Edelstahl",
+    fr: "Vannes à bille en inox",
+    ru: "Шаровые краны из нержавеющей стали",
   },
   {
     url: brazing,
@@ -135,7 +141,8 @@ export const workPhotoSources = [
     category: "pipes",
     fi: "Kupariputken juottaminen työmaalla",
     en: "Brazing copper pipework on site",
-    de: "Hartlöten von Kupferrohren auf der Baustelle",
+    fr: "Brasage de tuyauterie en cuivre sur chantier",
+    ru: "Пайка медных труб на объекте",
   },
   {
     url: copper,
@@ -143,7 +150,8 @@ export const workPhotoSources = [
     category: "maintenance",
     fi: "Kupariputket ja sulkuventtiilit",
     en: "Copper pipework and shut-off valves",
-    de: "Kupferleitungen und Absperrventile",
+    fr: "Tuyauterie en cuivre et vannes d'arrêt",
+    ru: "Медные трубы и запорные краны",
   },
   {
     url: filters,
@@ -151,7 +159,8 @@ export const workPhotoSources = [
     category: "maintenance",
     fi: "Vedensuodattimet ja sulkuventtiili",
     en: "Water filter vessels and gate valve",
-    de: "Wasserfilterbehälter und Absperrschieber",
+    fr: "Filtres à eau et vanne à opercule",
+    ru: "Корпуса водяных фильтров и задвижка",
   },
   {
     url: distribution,
@@ -159,7 +168,8 @@ export const workPhotoSources = [
     category: "pipes",
     fi: "Teräs- ja kupariputkien linjat",
     en: "Steel and copper distribution lines",
-    de: "Verteilleitungen aus Stahl und Kupfer",
+    fr: "Réseaux de distribution en acier et en cuivre",
+    ru: "Стальные и медные распределительные линии",
   },
   {
     url: floorHeating,
@@ -167,7 +177,8 @@ export const workPhotoSources = [
     category: "maintenance",
     fi: "Lattialämmityksen jakotukki",
     en: "Underfloor heating manifold",
-    de: "Fußbodenheizungsverteiler",
+    fr: "Collecteur de plancher chauffant",
+    ru: "Коллектор тёплого пола",
   },
   {
     url: valves,
@@ -175,7 +186,8 @@ export const workPhotoSources = [
     category: "maintenance",
     fi: "Teknisen tilan putket ja venttiilit",
     en: "Technical room pipework and valves",
-    de: "Rohrleitungen und Ventile im Technikraum",
+    fr: "Tuyauterie et vannes en local technique",
+    ru: "Трубы и вентили в техническом помещении",
   },
   {
     url: basinGreen,
@@ -183,7 +195,8 @@ export const workPhotoSources = [
     category: "bathroom",
     fi: "Pesualtaan asennus",
     en: "Washbasin installation",
-    de: "Waschtischmontage",
+    fr: "Pose d'un lavabo",
+    ru: "Установка раковины",
   },
   {
     url: sinks,
@@ -191,7 +204,8 @@ export const workPhotoSources = [
     category: "kitchen",
     fi: "Kahden pesualtaan asennus",
     en: "Double sink installation",
-    de: "Montage von zwei Spülbecken",
+    fr: "Pose de deux éviers",
+    ru: "Установка двух моек",
   },
   {
     url: steelSink,
@@ -199,7 +213,8 @@ export const workPhotoSources = [
     category: "kitchen",
     fi: "Teräksinen käsienpesuallas ja pintaputket",
     en: "Stainless hand-wash sink with surface pipework",
-    de: "Edelstahl-Handwaschbecken mit Aufputzleitungen",
+    fr: "Lave-mains en inox avec tuyauterie apparente",
+    ru: "Раковина из нержавейки с открытой разводкой",
   },
   {
     url: team,
@@ -207,7 +222,8 @@ export const workPhotoSources = [
     category: "installations",
     fi: "Tiimityötä työmaalla",
     en: "Teamwork on site",
-    de: "Teamarbeit auf der Baustelle",
+    fr: "Travail d'équipe sur le chantier",
+    ru: "Командная работа на объекте",
   },
   {
     url: underPipes,
@@ -215,7 +231,8 @@ export const workPhotoSources = [
     category: "pipes",
     fi: "Hitsausta putkiston alla",
     en: "Welding beneath the pipework",
-    de: "Schweißen unter der Rohrleitung",
+    fr: "Soudure sous la tuyauterie",
+    ru: "Сварка под трубопроводом",
   },
   {
     url: pipeStand,
@@ -223,7 +240,8 @@ export const workPhotoSources = [
     category: "pipes",
     fi: "Teräsputken hitsaus pukilla",
     en: "Welding steel pipe on a pipe stand",
-    de: "Schweißen eines Stahlrohrs auf dem Rohrbock",
+    fr: "Soudure d'un tube en acier sur servante",
+    ru: "Сварка стальной трубы на опоре",
   },
   {
     url: flange,
@@ -231,7 +249,8 @@ export const workPhotoSources = [
     category: "maintenance",
     fi: "Laipan kokoaminen ruuvipenkissä",
     en: "Assembling a flange in the vise",
-    de: "Flanschmontage im Schraubstock",
+    fr: "Montage d'une bride dans l'étau",
+    ru: "Сборка фланца в тисках",
   },
   {
     url: brazingClose,
@@ -239,7 +258,8 @@ export const workPhotoSources = [
     category: "pipes",
     fi: "Juotos lähikuvassa",
     en: "Brazing close-up",
-    de: "Hartlöten in Nahaufnahme",
+    fr: "Brasage en gros plan",
+    ru: "Пайка крупным планом",
   },
   {
     url: prefab,
@@ -247,7 +267,8 @@ export const workPhotoSources = [
     category: "installations",
     fi: "Putkien esivalmistelu",
     en: "Pipe prefabrication",
-    de: "Vorfertigung von Rohren",
+    fr: "Préfabrication de tuyauterie",
+    ru: "Предварительная сборка труб",
   },
   {
     url: inWall,
@@ -255,7 +276,8 @@ export const workPhotoSources = [
     category: "installations",
     fi: "Putkivedot seinärakenteessa",
     en: "In-wall pipe rough-in",
-    de: "Rohinstallation in der Wand",
+    fr: "Pose de tuyauterie dans la cloison",
+    ru: "Прокладка труб в стене",
   },
   {
     url: waterLines,
@@ -263,7 +285,8 @@ export const workPhotoSources = [
     category: "pipes",
     fi: "Vesijohdot seinärakenteessa",
     en: "Water lines inside a wall",
-    de: "Wasserleitungen in der Wand",
+    fr: "Conduites d'eau dans une cloison",
+    ru: "Водопроводные трубы в стене",
   },
   {
     url: roughIn,
@@ -271,7 +294,8 @@ export const workPhotoSources = [
     category: "bathroom",
     fi: "Kylpyhuoneen putkivedot",
     en: "Bathroom pipe rough-in",
-    de: "Rohinstallation im Badezimmer",
+    fr: "Pose de tuyauterie en salle de bain",
+    ru: "Черновая разводка труб в ванной",
   },
   {
     url: mounts,
@@ -279,7 +303,8 @@ export const workPhotoSources = [
     category: "bathroom",
     fi: "Kylpyhuoneen putkikannakkeet",
     en: "Bathroom pipe mounting brackets",
-    de: "Rohrhalterungen im Badezimmer",
+    fr: "Supports de tuyauterie en salle de bain",
+    ru: "Крепления труб в ванной",
   },
   {
     url: inProgress,
@@ -287,7 +312,8 @@ export const workPhotoSources = [
     category: "kitchen",
     fi: "Pesualtaan putkiasennus työn alla",
     en: "Sink pipework in progress",
-    de: "Spülbecken-Anschlüsse in Arbeit",
+    fr: "Raccordement d'éviers en cours",
+    ru: "Подключение моек в процессе",
   },
   {
     url: wc,
@@ -295,7 +321,8 @@ export const workPhotoSources = [
     category: "bathroom",
     fi: "WC, bidee-suihku ja pesuallas",
     en: "WC, bidet shower and washbasin",
-    de: "WC, Bidetbrause und Waschbecken",
+    fr: "WC, douchette bidet et lavabo",
+    ru: "Унитаз, гигиенический душ и раковина",
   },
   {
     url: toilet,
@@ -303,7 +330,8 @@ export const workPhotoSources = [
     category: "bathroom",
     fi: "WC ja pesuallas",
     en: "Toilet and washbasin",
-    de: "WC und Waschbecken",
+    fr: "WC et lavabo",
+    ru: "Унитаз и раковина",
   },
   {
     url: winter,
@@ -311,7 +339,8 @@ export const workPhotoSources = [
     category: "installations",
     fi: "Talvityömaa",
     en: "Winter construction site",
-    de: "Winterbaustelle",
+    fr: "Chantier en hiver",
+    ru: "Зимняя стройплощадка",
   },
   {
     url: labSite,
@@ -319,7 +348,8 @@ export const workPhotoSources = [
     category: "installations",
     fi: "Momodou laboratoriotyömaalla",
     en: "Momodou on a laboratory site",
-    de: "Momodou auf einer Laborbaustelle",
+    fr: "Momodou sur un chantier de laboratoire",
+    ru: "Момоду на объекте-лаборатории",
   },
   {
     url: workshop,
@@ -327,7 +357,8 @@ export const workPhotoSources = [
     category: "installations",
     fi: "Putkityökalut työmaalla",
     en: "Plumbing tools on site",
-    de: "Installationswerkzeug auf der Baustelle",
+    fr: "Outils de plomberie sur le chantier",
+    ru: "Сантехнический инструмент на объекте",
   },
   {
     url: workbench,
@@ -335,7 +366,8 @@ export const workPhotoSources = [
     category: "installations",
     fi: "Työpiste kellarityömaalla",
     en: "Pipe workbench on a basement site",
-    de: "Rohr-Werkbank auf einer Kellerbaustelle",
+    fr: "Établi de tuyauterie sur un chantier en sous-sol",
+    ru: "Верстак для труб на подвальном объекте",
   },
   {
     url: oras,
@@ -343,6 +375,7 @@ export const workPhotoSources = [
     category: "bathroom",
     fi: "Oras-hanojen ja suihkujen nouto",
     en: "Picking up Oras taps and shower sets",
-    de: "Abholung von Oras-Armaturen und Duschsets",
+    fr: "Retrait de robinets et douches Oras",
+    ru: "Получение смесителей и душевых комплектов Oras",
   },
 ];

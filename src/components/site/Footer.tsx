@@ -7,7 +7,7 @@ import { LangSwitch } from "./LangSwitch";
 
 export function Footer() {
   const { t } = useLang();
-  const links = [["/#home", t.nav.home], ["/#services", t.nav.services], ["/gallery", t.nav.gallery], ["/#about", t.nav.about], ["/#contact", t.nav.contact]];
+  const links = [["/#home", t.nav.home], ["/#services", t.nav.services], ["/gallery", t.nav.gallery], ["/#about", t.nav.about], ["/invest", t.invest.nav], ["/#contact", t.nav.contact]];
   return (
     <footer className="bg-navy pb-28 pt-16 text-navy-foreground md:pb-12">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 md:grid-cols-3">

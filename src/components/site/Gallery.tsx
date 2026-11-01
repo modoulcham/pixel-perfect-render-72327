@@ -26,11 +26,13 @@ function useMedia() {
   return items ?? [];
 }
 
-/** Caption in the current language; uploads without a German caption fall back to English. */
+/** Caption in the current language; uploads without a French or Russian caption fall back to English. */
 function useCaption() {
   const { lang } = useLang();
   return (p: MediaItem) => {
-    const preferred = lang === "fi" ? p.caption_fi : lang === "de" ? p.caption_de : p.caption_en;
+    const preferred = { en: p.caption_en, fi: p.caption_fi, fr: p.caption_fr, ru: p.caption_ru }[
+      lang
+    ];
     return preferred || p.caption_en || p.caption_fi;
   };
 }

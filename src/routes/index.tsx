@@ -8,6 +8,7 @@ import { Services } from "@/components/site/Services";
 import { Documents, GalleryPreview } from "@/components/site/Gallery";
 import { About, Partners, Why } from "@/components/site/About";
 import { Contact } from "@/components/site/Contact";
+import { InvestTeaser } from "@/components/site/Invest";
 import { Footer, MobileBar } from "@/components/site/Footer";
 
 const ogImage = shareImage(site.url);
@@ -23,7 +24,8 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "fi_FI" },
       { property: "og:locale:alternate", content: "en_GB" },
-      { property: "og:locale:alternate", content: "de_DE" },
+      { property: "og:locale:alternate", content: "fr_FR" },
+      { property: "og:locale:alternate", content: "ru_RU" },
       { name: "twitter:card", content: "summary_large_image" },
       ...(ogImage ? [{ property: "og:image", content: ogImage }] : []),
     ],
@@ -40,7 +42,7 @@ export const Route = createFileRoute("/")({
           taxID: site.businessId,
           address: { "@type": "PostalAddress", addressLocality: site.city, addressRegion: site.region, addressCountry: site.country },
           geo: { "@type": "GeoCoordinates", latitude: 60.4518, longitude: 22.2666 },
-          areaServed: ["Turku", "Varsinais-Suomi"],
+          areaServed: ["Turku", "Varsinais-Suomi", "Finland"],
         }),
       },
     ],
@@ -59,6 +61,7 @@ function Index() {
         <Documents />
         <About />
         <Partners />
+        <InvestTeaser />
         <Why />
         <Contact />
       </main>

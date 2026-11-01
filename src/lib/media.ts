@@ -8,8 +8,9 @@ export type MediaItem = {
   mime_type: string | null;
   caption_fi: string;
   caption_en: string;
-  /** Only the supplied work photos have German captions; uploads fall back to English. */
-  caption_de?: string;
+  /** Only the supplied work photos have French and Russian captions; uploads fall back to English. */
+  caption_fr?: string;
+  caption_ru?: string;
   category: string;
   sort_order: number;
   url: string;
@@ -18,7 +19,7 @@ export type MediaItem = {
 };
 
 /** Columns of a `media_items` row that admins can edit (excludes client-only fields). */
-export type MediaPatch = Partial<Omit<MediaItem, "url" | "caption_de" | "thumb">>;
+export type MediaPatch = Partial<Omit<MediaItem, "url" | "caption_fr" | "caption_ru" | "thumb">>;
 
 export const MEDIA_BUCKET = "media";
 
@@ -30,7 +31,8 @@ export const workPhotos: MediaItem[] = workPhotoSources.map((p, i) => ({
   mime_type: "image/jpeg",
   caption_fi: p.fi,
   caption_en: p.en,
-  caption_de: p.de,
+  caption_fr: p.fr,
+  caption_ru: p.ru,
   category: p.category,
   sort_order: i,
   url: p.url,

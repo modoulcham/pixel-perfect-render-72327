@@ -22,4 +22,12 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).toBe("/gallery");
   });
+
+  it("matches the invest page", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+
+    const matches = router.matchRoutes("/invest");
+
+    expect(matches.at(-1)?.routeId).toBe("/invest");
+  });
 });
