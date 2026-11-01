@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { translations } from "@/i18n/translations";
+import { shareImage } from "@/lib/work-photos";
 import { site } from "@/config/site";
 import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
@@ -9,6 +10,7 @@ import { About, Partners, Why } from "@/components/site/About";
 import { Contact } from "@/components/site/Contact";
 import { Footer, MobileBar } from "@/components/site/Footer";
 
+const ogImage = shareImage(site.url);
 const seo = translations.fi.seo;
 
 export const Route = createFileRoute("/")({
@@ -23,6 +25,7 @@ export const Route = createFileRoute("/")({
       { property: "og:locale:alternate", content: "en_GB" },
       { property: "og:locale:alternate", content: "de_DE" },
       { name: "twitter:card", content: "summary_large_image" },
+      ...(ogImage ? [{ property: "og:image", content: ogImage }] : []),
     ],
     scripts: [
       {

@@ -13,7 +13,12 @@ export type MediaItem = {
   category: string;
   sort_order: number;
   url: string;
+  /** Smaller copy for grids; falls back to `url`. */
+  thumb?: string;
 };
+
+/** Columns of a `media_items` row that admins can edit (excludes client-only fields). */
+export type MediaPatch = Partial<Omit<MediaItem, "url" | "caption_de" | "thumb">>;
 
 export const MEDIA_BUCKET = "media";
 
@@ -29,7 +34,11 @@ export const workPhotos: MediaItem[] = workPhotoSources.map((p, i) => ({
   category: p.category,
   sort_order: i,
   url: p.url,
+  thumb: p.thumb,
 }));
+
+/** Curated shots for the home-page preview. */
+export const featuredWorkPhotos = workPhotos.filter((_, i) => workPhotoSources[i]?.featured);
 
 export async function fetchMedia(): Promise<MediaItem[]> {
   const { data, error } = await supabase

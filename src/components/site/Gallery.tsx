@@ -11,12 +11,10 @@ import {
 } from "lucide-react";
 import { useLang } from "@/i18n/LanguageProvider";
 import { categories, type Category } from "@/i18n/translations";
-import { fetchMedia, workPhotos, type MediaItem } from "@/lib/media";
+import { featuredWorkPhotos, fetchMedia, workPhotos, type MediaItem } from "@/lib/media";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Reveal, SectionHeading } from "./Reveal";
-
-const PREVIEW_COUNT = 6;
 
 function useMedia() {
   const [items, setItems] = useState<MediaItem[] | null>(null);
@@ -37,26 +35,40 @@ function useCaption() {
   };
 }
 
-function PhotoGrid({ photos }: { photos: MediaItem[] }) {
+/** `uniform` crops every photo to the same shape so short grids end evenly. */
+function PhotoGrid({ photos, uniform }: { photos: MediaItem[]; uniform?: boolean }) {
   const { t } = useLang();
   const caption = useCaption();
   const [index, setIndex] = useState<number | null>(null);
   return (
     <>
-      <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
+      <div
+        className={
+          uniform
+            ? "grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            : "columns-1 gap-5 sm:columns-2 lg:columns-3"
+        }
+      >
         {photos.map((p, i) => (
           <Button
             variant="ghost"
             key={p.id}
             onClick={() => setIndex(i)}
-            className="group relative mb-5 block h-auto w-full break-inside-avoid overflow-hidden rounded-2xl bg-card p-0 whitespace-normal shadow-soft focus-visible:ring-2 focus-visible:ring-ring"
+            className={cn(
+              "group relative block h-auto w-full break-inside-avoid",
+              !uniform && "mb-5",
+              " overflow-hidden rounded-2xl bg-card p-0 whitespace-normal shadow-soft focus-visible:ring-2 focus-visible:ring-ring",
+            )}
           >
             <img
-              src={p.url}
+              src={p.thumb ?? p.url}
               alt={caption(p)}
               loading="lazy"
               decoding="async"
-              className="w-full transition-transform duration-500 group-hover:scale-105"
+              className={cn(
+                "w-full transition-transform duration-500 group-hover:scale-105",
+                uniform && "aspect-[4/5] object-cover",
+              )}
             />
             <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/85 to-transparent p-4 pt-12 text-left">
               <span className="block text-xs font-bold uppercase tracking-wider text-cyan">
@@ -85,7 +97,7 @@ export function GalleryPreview() {
           title={t.gallery.title}
           subtitle={t.gallery.subtitle}
         />
-        <PhotoGrid photos={workPhotos.slice(0, PREVIEW_COUNT)} />
+        <PhotoGrid photos={featuredWorkPhotos} uniform />
         <Reveal className="mt-6 text-center">
           <Button asChild variant="navy" size="lg">
             <Link to="/gallery">
@@ -253,16 +265,13 @@ export function Documents() {
   const { t } = useLang();
   const caption = useCaption();
   const docs = useMedia().filter((i) => i.kind === "document");
+  // Stays hidden until the owner uploads documents in /admin.
+  if (docs.length === 0) return null;
   return (
     <section id="documents" className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading eyebrow={t.docs.eyebrow} title={t.docs.title} subtitle={t.docs.subtitle} />
-        {docs.length === 0 ? (
-          <Reveal className="mx-auto max-w-md rounded-2xl border border-dashed bg-surface p-10 text-center">
-            <FileText className="mx-auto mb-3 h-10 w-10 text-water" />
-            <p className="text-muted-foreground">{t.docs.empty}</p>
-          </Reveal>
-        ) : (
+        {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {docs.map((d, i) => {
               const title = caption(d);
@@ -302,7 +311,7 @@ export function Documents() {
               );
             })}
           </div>
-        )}
+        }
       </div>
     </section>
   );

@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/site/Logo";
 import { categories, translations } from "@/i18n/translations";
-import { fetchMedia, MEDIA_BUCKET, type MediaItem } from "@/lib/media";
+import { fetchMedia, MEDIA_BUCKET, type MediaItem, type MediaPatch } from "@/lib/media";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -145,7 +145,7 @@ function Manager() {
     load();
   }
 
-  async function save(item: MediaItem, patch: Partial<Omit<MediaItem, "url" | "caption_de">>) {
+  async function save(item: MediaItem, patch: MediaPatch) {
     const { error } = await supabase.from("media_items").update(patch).eq("id", item.id);
     if (error) toast.error(error.message); else { toast.success("Tallennettu"); load(); }
   }
@@ -181,7 +181,7 @@ function Manager() {
 
 function ItemList({ title, list, move, remove, save }: {
   title: string; list: MediaItem[];
-  move: (l: MediaItem[], i: number, d: -1 | 1) => void; remove: (i: MediaItem) => void; save: (i: MediaItem, p: Partial<Omit<MediaItem, "url" | "caption_de">>) => void;
+  move: (l: MediaItem[], i: number, d: -1 | 1) => void; remove: (i: MediaItem) => void; save: (i: MediaItem, p: MediaPatch) => void;
 }) {
   return (
     <section>
@@ -196,7 +196,7 @@ function ItemList({ title, list, move, remove, save }: {
 
 function Row({ item, idx, list, move, remove, save }: {
   item: MediaItem; idx: number; list: MediaItem[];
-  move: (l: MediaItem[], i: number, d: -1 | 1) => void; remove: (i: MediaItem) => void; save: (i: MediaItem, p: Partial<Omit<MediaItem, "url" | "caption_de">>) => void;
+  move: (l: MediaItem[], i: number, d: -1 | 1) => void; remove: (i: MediaItem) => void; save: (i: MediaItem, p: MediaPatch) => void;
 }) {
   const [fi, setFi] = useState(item.caption_fi);
   const [en, setEn] = useState(item.caption_en);

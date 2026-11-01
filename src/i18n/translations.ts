@@ -53,7 +53,6 @@ const fi = {
     subtitle: "Koulutus, pätevyydet ja referenssit.",
     view: "Avaa",
     download: "Lataa",
-    empty: "Asiakirjat lisätään pian.",
   },
   about: {
     eyebrow: "Meistä",
@@ -175,7 +174,6 @@ const en: typeof fi = {
     subtitle: "Training, qualifications and references.",
     view: "View",
     download: "Download",
-    empty: "Documents will be added soon.",
   },
   about: {
     eyebrow: "About",
@@ -297,7 +295,6 @@ const de: typeof fi = {
     subtitle: "Ausbildung, Qualifikationen und Referenzen.",
     view: "Ansehen",
     download: "Herunterladen",
-    empty: "Dokumente werden in Kürze hinzugefügt.",
   },
   about: {
     eyebrow: "Über uns",
@@ -373,3 +370,5 @@ const de: typeof fi = {
 export const translations = { fi, en, de };
 export type Dict = typeof fi;
 export const languages = Object.keys(translations) as Lang[];
+/** Each language named in itself, as shown in the language menu. */
+export const languageNames: Record<Lang, string> = { fi: "Suomi", en: "English", de: "Deutsch" };
