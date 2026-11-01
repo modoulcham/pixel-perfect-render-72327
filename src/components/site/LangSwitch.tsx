@@ -1,7 +1,8 @@
-import { Check, ChevronDown, Globe } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { useLang } from "@/i18n/LanguageProvider";
 import { languageNames, languages } from "@/i18n/translations";
 import { cn } from "@/lib/utils";
+import { Flag } from "./Flag";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,7 +23,7 @@ export function LangSwitch({ inverted }: { inverted?: boolean }) {
             : "border-border text-navy hover:bg-accent",
         )}
       >
-        <Globe className="h-4 w-4" aria-hidden="true" />
+        <Flag lang={lang} />
         {lang.toUpperCase()}
         <ChevronDown className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
       </DropdownMenuTrigger>
@@ -37,7 +38,10 @@ export function LangSwitch({ inverted }: { inverted?: boolean }) {
               lang === l ? "font-semibold text-navy" : "text-muted-foreground",
             )}
           >
-            {languageNames[l]}
+            <span className="flex items-center gap-2.5">
+              <Flag lang={l} />
+              {languageNames[l]}
+            </span>
             {lang === l && <Check className="h-4 w-4 text-water" aria-hidden="true" />}
           </DropdownMenuItem>
         ))}
