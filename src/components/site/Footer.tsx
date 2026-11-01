@@ -24,10 +24,9 @@ export function Footer() {
           <h3 className="mb-4 font-bold">{t.footer.links}</h3>
           <ul className="space-y-1">
             {links.map((l) => (
-              <li key={l.to + ("hash" in l ? l.hash : "")}>
+              <li key={l.key}>
                 <Link
-                  to={l.to}
-                  hash={"hash" in l ? l.hash : undefined}
+                  {...l.link}
                   className="inline-flex min-h-9 items-center text-navy-foreground/75 hover:text-cyan"
                 >
                   {l.label}

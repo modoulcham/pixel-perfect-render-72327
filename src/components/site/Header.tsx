@@ -39,9 +39,8 @@ export function Header() {
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
           {links.map((l) => (
             <Link
-              key={l.to + ("hash" in l ? l.hash : "")}
-              to={l.to}
-              hash={"hash" in l ? l.hash : undefined}
+              key={l.key}
+              {...l.link}
               className="whitespace-nowrap rounded-lg px-3 py-2 text-sm font-semibold text-navy/80 transition-colors hover:bg-accent hover:text-navy"
             >
               {l.label}
@@ -79,9 +78,8 @@ export function Header() {
           <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4" aria-label="Mobile">
             {links.map((l) => (
               <Link
-                key={l.to + ("hash" in l ? l.hash : "")}
-                to={l.to}
-                hash={"hash" in l ? l.hash : undefined}
+                key={l.key}
+                {...l.link}
                 onClick={() => setOpen(false)}
                 className="flex min-h-11 items-center rounded-lg px-3 text-base font-semibold text-navy hover:bg-accent"
               >
