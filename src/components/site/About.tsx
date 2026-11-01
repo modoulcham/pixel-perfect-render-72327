@@ -3,7 +3,7 @@ import { BadgeCheck, Building2, CheckCircle2, Clock, Handshake, Home, Leaf, MapP
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/i18n/LanguageProvider";
 import { site } from "@/config/site";
-import g1 from "@/assets/g1.jpg";
+import { aboutWorkPhoto } from "@/lib/work-photos";
 import { Reveal, SectionHeading, Wave } from "./Reveal";
 
 function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
@@ -37,7 +37,7 @@ export function About() {
     <section id="about" className="bg-surface py-20 sm:py-28">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16">
         <Reveal className="relative">
-          <img src={g1} alt={t.about.title} loading="lazy" width={1024} height={1280} className="aspect-[4/5] w-full rounded-3xl object-cover shadow-lift sm:aspect-[4/3] lg:aspect-[4/5]" />
+          <img src={aboutWorkPhoto} alt={t.about.title} loading="lazy" width={768} height={1024} className="aspect-[4/5] w-full rounded-3xl object-cover shadow-lift sm:aspect-[4/3] lg:aspect-[4/5]" />
           <div className="absolute -bottom-6 left-4 right-4 rounded-2xl bg-card p-5 shadow-lift sm:left-auto sm:right-6 sm:w-72">
             <p className="font-bold text-navy">{site.owner}</p>
             <p className="text-sm text-muted-foreground">{t.about.role}</p>

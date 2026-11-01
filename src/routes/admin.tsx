@@ -18,6 +18,8 @@ export const Route = createFileRoute("/admin")({
       { name: "description", content: "Kuvien ja asiakirjojen hallinta." },
       { property: "og:title", content: "Hallinta – Momodou's Plumbing Service" },
       { property: "og:description", content: "Kuvien ja asiakirjojen hallinta." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -133,8 +135,8 @@ function Manager() {
   }
 
   async function move(list: MediaItem[], idx: number, dir: -1 | 1) {
-    const a = list[idx]!, b = list[idx + dir];
-    if (!b) return;
+    const a = list[idx], b = list[idx + dir];
+    if (!a || !b) return;
     const ao = a.sort_order === b.sort_order ? b.sort_order + dir : b.sort_order;
     await Promise.all([
       supabase.from("media_items").update({ sort_order: ao }).eq("id", a.id),
@@ -184,7 +186,7 @@ function ItemList({ title, list, move, remove, save }: {
   return (
     <section>
       <h2 className="mb-4 text-xl font-extrabold text-navy">{title}</h2>
-      {list.length === 0 && <p className="text-muted-foreground">Ei vielä sisältöä. Sivustolla näytetään esimerkkikuvat siihen asti.</p>}
+      {list.length === 0 && <p className="text-muted-foreground">Ei vielä lisättyjä tiedostoja.</p>}
       <div className="grid gap-4 md:grid-cols-2">
         {list.map((item, idx) => <Row key={item.id} item={item} idx={idx} list={list} move={move} remove={remove} save={save} />)}
       </div>
